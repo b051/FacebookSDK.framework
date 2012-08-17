@@ -18,10 +18,12 @@
 #import "FBSession.h"
 #import "FBRequest.h"
 #import "FBError.h"
+#import "FBSettings.h"
 
 // ux
 #import "FBLoginView.h"
 #import "FBProfilePictureView.h"
+#import "FBUserSettingsViewController.h"
 #import "FBPlacePickerViewController.h"
 #import "FBFriendPickerViewController.h"
 #import "FBCacheDescriptor.h"
@@ -32,6 +34,13 @@
 #import "FBGraphLocation.h"
 #import "FBGraphObject.h"           // + design summary for graph component-group
 #import "FBOpenGraphAction.h"
+
+// ux
+#import "FBLoginView.h"
+#import "FBProfilePictureView.h"
+#import "FBPlacePickerViewController.h"
+#import "FBFriendPickerViewController.h"
+#import "FBCacheDescriptor.h"
 
 /*!
  @header
@@ -100,27 +109,25 @@
 
  <pre>
  @textblock
- 
- // log on to Facebook
- _fbsession = [[FBSession alloc] init];
- [_fbsession openWithCompletionBlock:^(FBSession *session, 
-                                       FBSessionStatus status, 
-                                       NSError *error) {
-     if (session.isOpen) {
-         // request basic information for the user
-         [FBRequest startRequestWithSession:session
-                                  graphPath:@"me"
-                          completionHandler:^void(FBRequest *request, 
-                                                  id result,
-                                                  NSError *error) {
-             if (!error) {
-                 // get json from result
-             }
-         }];
-     }
- }];
- 
+
+// log on to Facebook
+[FBSession sessionOpenWithPermissions:nil
+                    completionHandler:^(FBSession *session, 
+                                        FBSessionState status, 
+                                        NSError *error) {
+                        if (session.isOpen) {
+                            // request basic information for the user
+                            [FBRequestConnection startWithGraphPath:@"me"
+                                                  completionHandler:^void(FBRequestConnection *request, 
+                                                                          id result,
+                                                                          NSError *error) {
+                                                      if (!error) {
+                                                          // get json from result
+                                                      }
+                                                  }];
+                        }
+                    }];
  @/textblock
  </pre>
-
-*/
+ 
+ */

@@ -25,11 +25,12 @@
  @discussion
  */
 typedef enum {
-    /*! Original (default) - the original profile picture, as uploaded. */
-    FBProfilePictureCroppingOriginal    = 0,
     
-    /*! Square - the square version that the Facebook user defined. */
-    FBProfilePictureCroppingSquare      = 1
+    /*! Square (default) - the square version that the Facebook user defined. */
+    FBProfilePictureCroppingSquare      = 0,
+    
+    /*! Original - the original profile picture, as uploaded. */
+    FBProfilePictureCroppingOriginal    = 1
     
 } FBProfilePictureCropping;
 
@@ -50,7 +51,7 @@ typedef enum {
  @abstract
  The Facebook ID of the user, place or object for which a picture should be fetched and displayed.
  */
-@property (copy, nonatomic) NSString* userID;
+@property (copy, nonatomic) NSString* profileID;
 
 /*!
  @abstract
@@ -69,10 +70,10 @@ typedef enum {
  @abstract
  Initializes and returns a profile view object for the given Facebook ID and cropping.
  
- @param userID          The Facebook ID of the user, place or object for which a picture should be fetched and displayed.
+ @param profileID       The Facebook ID of the user, place or object for which a picture should be fetched and displayed.
  @param pictureCropping The cropping to use for the profile picture.
  */
-- (id)initWithUserID:(NSString*)userID 
+- (id)initWithProfileID:(NSString*)profileID 
      pictureCropping:(FBProfilePictureCropping)pictureCropping;
 
 

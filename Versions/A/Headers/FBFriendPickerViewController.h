@@ -18,6 +18,7 @@
 #import "FBGraphUser.h"
 #import "FBSession.h"
 #import "FBCacheDescriptor.h"
+#import "FBViewController.h"
 
 @protocol FBFriendPickerDelegate;
 @class FBFriendPickerCacheDescriptor;
@@ -75,7 +76,7 @@ typedef enum {
  data changes. The delegate can also be used to filter the friends to display in the
  picker.
  */
-@interface FBFriendPickerViewController : UIViewController
+@interface FBFriendPickerViewController : FBViewController
 
 /*!
  @abstract
@@ -91,15 +92,9 @@ typedef enum {
 
 /*!
  @abstract
- A Boolean value that specifies whether multi-selelect is enabled.
+ A Boolean value that specifies whether multi-select is enabled.
  */
 @property (nonatomic) BOOL allowsMultipleSelection;
-
-/*!
- @abstract
- The delegate object that receives updates for selection and display control.
- */
-@property (nonatomic, assign) id<FBFriendPickerDelegate> delegate;
 
 /*!
  @abstract
@@ -201,6 +196,12 @@ typedef enum {
 - (void)updateView;
 
 /*!
+ @abstract
+ Clears the current selection, so the picker is ready for a fresh use.
+ */
+- (void)clearSelection;
+
+/*!
  @method
  
  @abstract
@@ -239,7 +240,7 @@ typedef enum {
  notifications and allow for deeper control of the <FBFriendPickerViewController>
  view.
  */
-@protocol FBFriendPickerDelegate <NSObject>
+@protocol FBFriendPickerDelegate <FBViewControllerDelegate>
 @optional
 
 /*!
